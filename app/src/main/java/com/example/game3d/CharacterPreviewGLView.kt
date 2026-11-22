@@ -151,10 +151,16 @@ class CharacterPreviewGLView(context: Context) : GLSurfaceView(context) {
             }
             MotionEvent.ACTION_UP -> {
                 renderer.autoRotate = true
+                performClick()
                 return true
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
     }
 }
 

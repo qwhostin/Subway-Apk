@@ -1,6 +1,7 @@
 package com.example.ui.screens
 
 import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -69,7 +70,7 @@ fun SettingsScreen(
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val activity = context as? Activity
+    val activity = LocalActivity.current
     val recommendedGfx = remember(context) { GameSettings.detectRecommendedQuality(context) }
     var showResetConfirm by remember { mutableStateOf(false) }
     var legalDialog by remember { mutableStateOf(LegalDialogType.NONE) }

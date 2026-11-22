@@ -2,6 +2,7 @@ package com.example.ui.screens
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -104,7 +105,7 @@ fun GamePlayScreen(
     onExitToMenu: () -> Unit
 ) {
     val context = LocalContext.current
-    val activity = context as? Activity
+    val activity = LocalActivity.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val focusRequester = remember { FocusRequester() }
 

@@ -178,16 +178,12 @@ object PhotoFaceProcessor {
 
     private fun readExifRotation(file: File): Float {
         return runCatching {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                val exif = ExifInterface(file.absolutePath)
-                when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
-                    ExifInterface.ORIENTATION_ROTATE_90 -> 90f
-                    ExifInterface.ORIENTATION_ROTATE_180 -> 180f
-                    ExifInterface.ORIENTATION_ROTATE_270 -> 270f
-                    else -> 0f
-                }
-            } else {
-                0f
+            val exif = ExifInterface(file.absolutePath)
+            when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+                ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+                ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+                else -> 0f
             }
         }.getOrDefault(0f)
     }

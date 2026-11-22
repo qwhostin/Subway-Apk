@@ -50,9 +50,15 @@ class RunnerGLSurfaceView(
                 return true
             }
             MotionEvent.ACTION_UP -> {
+                if (!gestureHandled) performClick()
                 return true
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ui.screens
 
 import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -85,7 +86,7 @@ fun MissionsScreen(
     onBack: () -> Unit
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
-    val activity = LocalContext.current as? Activity
+    val activity = LocalActivity.current
     val filtered = remember(state.missions, selectedTab) {
         val period = if (selectedTab == 0) MissionPeriod.DAILY else MissionPeriod.WEEKLY
         state.missions.filter { it.period == period }
