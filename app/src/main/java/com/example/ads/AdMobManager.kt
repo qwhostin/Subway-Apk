@@ -30,6 +30,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
@@ -65,6 +67,18 @@ class AdMobManager(private val context: Context) {
     val adState: StateFlow<AdConsentState> = _adState.asStateFlow()
 
     fun requestConsentAndInitialize(activity: Activity) {
+        val playServicesStatus = runCatching {
+            GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
+        }.getOrDefault(ConnectionResult.SERVICE_MISSING)
+
+        if (playServicesStatus != ConnectionResult.SUCCESS) {
+            _adState.value = _adState.value.copy(
+                canRequestAds = false,
+                statusNote = "Google Play Services unavailable (ad-free fallback active)"
+            )
+            return
+        }
+
         runCatching {
             val params = ConsentRequestParameters.Builder()
                 .setTagForUnderAgeOfConsent(false)
