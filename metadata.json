@@ -1,0 +1,6 @@
+{
+  "name": "RUNVANTA",
+  "description": "Original 3D endless runner game by QW HOSTING featuring Play As Anyone custom 3D face mapping, 8 worlds, 6 game modes, and AdMob support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
